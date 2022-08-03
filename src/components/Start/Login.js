@@ -2,12 +2,14 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 
+
+
 import { getAccess } from "../../services/trackit";
-import { Container, StyledForm, StyledLink, Logo } from "./style";
+import { Container, StyledForm, StyledLink, Logo, Loading } from "./style";
 
 export default function Login(){
 
-    const { login, setLogin, setUser, setToken} = useContext(UserContext);
+    const { login, setLogin, setUser, setToken, loading, setLoading} = useContext(UserContext);
     const navigate = useNavigate();
 
     function handleLogin(e){
@@ -24,10 +26,13 @@ export default function Login(){
             return;
         }
 
+        setLoading(true);
+
         getAccess(login).then(response => {
             setUser(response.data);
             setToken(response.data.token);
-            navigate('/hoje')
+            setLoading(false);
+            navigate('/hoje');
         });
 
         getAccess(login).catch(error => {
@@ -36,16 +41,19 @@ export default function Login(){
             } else {
                 alert (`Oh no! Erro ${error.response.status}!`)
             }
+            setLoading(false);
         });
 
-        /* FALTA CONFIGURAR TODA A ANIMAÇÃO ENQUANTO FAZ O LOGIN, CONCLUIR O CSS DA TELA, E DESCOBRIR O QUE FAZER COM O USER E TOKEN*/
+        /* FALTA CONFIGURAR TODA A ANIMAÇÃO ENQUANTO FAZ O LOGIN */
     }
 
     return (
         <Container>
 
-            <img src={Logo} alt='Logo' style={{width: 180}}/>
+            <img src={Logo} alt='Logo' style={{ width: 180 }} />
             <h1>TrackIt</h1>
+            <Loading />
+
 
             <StyledForm onSubmit={handleLogin}>
                 <input
@@ -53,14 +61,18 @@ export default function Login(){
                     value={login.email}
                     onChange={e => setLogin({...login, email:e.target.value})}
                     placeholder='email'
+                    disabled={loading}
                 />
                 <input
                     type='password'
                     value={login.password}
                     onChange={e => setLogin({...login, password:e.target.value})}
                     placeholder='senha'
+                    disabled={loading}
                 />
-                <button type='submit'>Entrar</button>
+                <button type='submit' disabled={loading}>
+                    {loading === false ? 'Entrar' : <Loading/>}
+                </button>
             </StyledForm>
 
             <StyledLink to='/cadastro'>

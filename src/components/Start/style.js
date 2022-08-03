@@ -1,6 +1,22 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../../assets/Logo.svg";
+import { ThreeDots } from  'react-loader-spinner';
+
+function Loading(){
+    return (
+        <ThreeDots
+        height="20"
+        width="50"
+        radius="9"
+        color="white"
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClassName=""
+        visible={true}
+        />
+    )
+}
 
 const Container = styled.div`
     display: flex;
@@ -60,6 +76,9 @@ const StyledForm = styled.form`
         font-weight: 400;
         font-size: 20px;
         line-height: 25px;
+        display:flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
         
         &:hover {
@@ -91,4 +110,5 @@ export {
     StyledForm,
     StyledLink,
     Logo,
+    Loading,
 }

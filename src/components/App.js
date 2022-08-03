@@ -18,6 +18,7 @@ export default function App() {
   const [register, setRegister] = useState({email:'', password:'', name:'', image:''});
   const [user, setUser] = useState(null);
   const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(false);
   
   return (
     <>
@@ -27,6 +28,7 @@ export default function App() {
                                       user, setUser,
                                       token, setToken,
                                       register, setRegister,
+                                      loading, setLoading,
                                     }}>
         <Container>
 
