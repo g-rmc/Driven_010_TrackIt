@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 
@@ -13,6 +13,16 @@ export default function Login(){
     function handleLogin(e){
 
         e.preventDefault();
+
+        if (login.email === ''){
+            alert('Digite seu email :D');
+            return;
+        }
+
+        if (login.password === ''){
+            alert('Digite sua senha :D');
+            return;
+        }
 
         getAccess(login).then(response => {
             setUser(response.data);

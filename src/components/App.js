@@ -5,8 +5,8 @@ import GlobalStyle from "../styles/globalStyles"
 
 import UserContext from "../contexts/UserContext";
 
-import Login from "./Login";
-import Register from "./Register";
+import Login from "./Start/Login";
+import Register from "./Start/Register";
 import Habits from "./Habits";
 import Today from "./Today";
 import History from "./History";
@@ -15,6 +15,7 @@ import History from "./History";
 export default function App() {
 
   const [login, setLogin] = useState({email:'', password:''});
+  const [register, setRegister] = useState({email:'', password:'', name:'', image:''});
   const [user, setUser] = useState(null);
   const [token, setToken] = useState("");
   
@@ -22,7 +23,11 @@ export default function App() {
     <>
       <GlobalStyle />
 
-      <UserContext.Provider value={{ login, setLogin, user, setUser, token, setToken }}>
+      <UserContext.Provider value={{  login, setLogin,
+                                      user, setUser,
+                                      token, setToken,
+                                      register, setRegister,
+                                    }}>
         <Container>
 
           <BrowserRouter>
