@@ -13,27 +13,18 @@ export default function Login(){
     function handleLogin(e){
 
         e.preventDefault();
-
-        if (login.email === ''){
-            alert('Digite seu email :D');
-            return;
-        }
-
-        if (login.password === ''){
-            alert('Digite sua senha :D');
-            return;
-        }
-
         setLoading(true);
 
-        getAccess(login).then(response => {
+        const promise = getAccess(login);
+
+        promise.then(response => {
             setUser(response.data);
             setToken(response.data.token);
             setLoading(false);
             navigate('/hoje');
         });
 
-        getAccess(login).catch(error => {
+        promise.catch(error => {
             if (error.response.status === 401){
                 alert ('Usuário não cadastrado!')
             } else {
@@ -57,6 +48,7 @@ export default function Login(){
                     value={login.email}
                     onChange={e => setLogin({...login, email:e.target.value})}
                     placeholder='email'
+                    required
                     disabled={loading}
                 />
                 <input
@@ -64,6 +56,7 @@ export default function Login(){
                     value={login.password}
                     onChange={e => setLogin({...login, password:e.target.value})}
                     placeholder='senha'
+                    required
                     disabled={loading}
                 />
                 <button type='submit' disabled={loading}>

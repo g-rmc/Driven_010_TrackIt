@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 
-import { getAccess } from "../../services/trackit";
+import { getRegister } from "../../services/trackit";
 import { Container, StyledForm, StyledLink, Logo, Loading } from "./style";
 
 export default function Register(){
@@ -11,29 +11,26 @@ export default function Register(){
     const navigate = useNavigate();
 
     function handleRegister(e){
+
         e.preventDefault();
-
-        if (register.email === ''){
-            alert('Digite seu email :D');
-            return;
-        }
-
-        if (register.password === ''){
-            alert('Digite sua senha :D');
-            return;
-        }
-
-        if (register.name === ''){
-            alert('Digite seu nome :D');
-            return;
-        }
-
-        if (register.image === ''){
-            alert('Insira o link da sua foto :D');
-            return;
-        }
-
         setLoading(true);
+
+        const promise = getRegister(register);
+
+        promise.then(response => {
+            setLoading(false);
+            alert('Usuário cadastrado com sucesso :D')
+            navigate('/');
+        });
+
+        promise.catch(error => {
+            if (error.response.status === 401){
+                alert ('Usuário não cadastrado!')
+            } else {
+                alert (`Oh no! Erro ${error.response.status}!`)
+            }
+            setLoading(false);
+        });
     }
 
     return (
@@ -48,6 +45,7 @@ export default function Register(){
                     value={register.email}
                     onChange={e => setRegister({...register, email:e.target.value})}
                     placeholder='email'
+                    required
                     disabled={loading}
                 />
                 <input
@@ -55,6 +53,7 @@ export default function Register(){
                     value={register.password}
                     onChange={e => setRegister({...register, password:e.target.value})}
                     placeholder='senha'
+                    required
                     disabled={loading}
                 />
                 <input
@@ -62,6 +61,7 @@ export default function Register(){
                     value={register.name}
                     onChange={e => setRegister({...register, name:e.target.value})}
                     placeholder='nome'
+                    required
                     disabled={loading}
                 />
                 <input
@@ -69,6 +69,7 @@ export default function Register(){
                     value={register.image}
                     onChange={e => setRegister({...register, image:e.target.value})}
                     placeholder='foto'
+                    required
                     disabled={loading}
                 />
                 <button type='submit' disabled={loading}>
