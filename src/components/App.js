@@ -6,6 +6,13 @@ import GlobalStyle from "../styles/globalStyles"
 import UserContext from "../contexts/UserContext";
 import Logo from "../assets/Logo.svg"
 
+import Login from "./Login";
+import Register from "./Register";
+import Habits from "./Habits";
+import Today from "./Today";
+import History from "./History";
+
+
 export default function App() {
 
   const [tasks, setTasks] = useState([]);
@@ -16,8 +23,19 @@ export default function App() {
 
       <UserContext.Provider value={{ tasks, setTasks }}>
         <Container>
+
           <img src={Logo} alt='Logo' style={{width: 180}}/>
           <h1>TrackIt</h1>
+
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Login />}/>
+              <Route path='/cadastro' element={<Register />}/>
+              <Route path='/habitos' element={<Habits />}/>
+              <Route path='/hoje' element={<Today />}/>
+              <Route path='/historico' element={<History />}/>
+            </Routes>
+          </BrowserRouter>
 
         </Container>
       </UserContext.Provider>
