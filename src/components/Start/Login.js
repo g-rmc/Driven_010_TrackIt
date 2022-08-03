@@ -2,8 +2,6 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 
-
-
 import { getAccess } from "../../services/trackit";
 import { Container, StyledForm, StyledLink, Logo, Loading } from "./style";
 
@@ -43,8 +41,6 @@ export default function Login(){
             }
             setLoading(false);
         });
-
-        /* FALTA CONFIGURAR TODA A ANIMAÇÃO ENQUANTO FAZ O LOGIN */
     }
 
     return (
@@ -75,7 +71,7 @@ export default function Login(){
                 </button>
             </StyledForm>
 
-            <StyledLink to='/cadastro'>
+            <StyledLink to={loading === false ? '/cadastro' : ''}>
                 Não tem uma conta? Cadastre-se!
             </StyledLink>
 
