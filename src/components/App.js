@@ -4,7 +4,6 @@ import styled from "styled-components";
 import GlobalStyle from "../styles/globalStyles"
 
 import UserContext from "../contexts/UserContext";
-import Logo from "../assets/Logo.svg"
 
 import Login from "./Login";
 import Register from "./Register";
@@ -15,17 +14,16 @@ import History from "./History";
 
 export default function App() {
 
-  const [tasks, setTasks] = useState([]);
-
+  const [login, setLogin] = useState({email:'', password:''});
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState("");
+  
   return (
     <>
       <GlobalStyle />
 
-      <UserContext.Provider value={{ tasks, setTasks }}>
+      <UserContext.Provider value={{ login, setLogin, user, setUser, token, setToken }}>
         <Container>
-
-          <img src={Logo} alt='Logo' style={{width: 180}}/>
-          <h1>TrackIt</h1>
 
           <BrowserRouter>
             <Routes>
@@ -55,12 +53,4 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  h1 {
-    font-family: 'Playball', cursive;
-    font-weight: 400;
-    font-size: 70px;
-    line-height: 86px;
-    text-align: center;
-    color: #126BA5;
-  }
 `
