@@ -1,5 +1,12 @@
+import TopBar from "./TopBar";
+import BottomMenu from "./BottomMenu";
+
 export default function Today(){
     return (
-        <>Hoje</>
+        <>
+        <TopBar/>
+        Hoje
+        <BottomMenu />
+    </>
     )
 }

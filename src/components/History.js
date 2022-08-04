@@ -1,5 +1,12 @@
+import TopBar from "./TopBar";
+import BottomMenu from "./BottomMenu";
+
 export default function History(){
     return (
-        <>Histórico</>
+        <>
+        <TopBar/>
+        Histórico
+        <BottomMenu />
+    </>
     )
 }

@@ -1,15 +1,24 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 import styled from "styled-components";
 
 export default function TopBar(){
 
-    const { user } = useContext(UserContext);
+    const { user, token } = useContext(UserContext);
+    const navigate = useNavigate();
+
+/*     useEffect(() => {
+        if (token === ''){
+            alert ('Você não está logado! :0');
+            navigate('/');
+        }
+    },[]) */
 
     return (
         <Container>
             
-            <h1>TrackIt</h1>
+            <h1 onClick={() => navigate('/hoje')}>TrackIt</h1>
             <img src={user.image} alt="profile"/>
             
         </ Container>
@@ -36,6 +45,11 @@ const Container = styled.div`
         color: white;
         font-size: 39px;
         line-height: 49px;
+    }
+
+    h1:hover {
+        cursor: pointer;
+        filter: brightness(70%);
     }
 
     img {

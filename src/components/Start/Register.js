@@ -24,8 +24,8 @@ export default function Register(){
         });
 
         promise.catch(error => {
-            if (error.response.status === 401){
-                alert ('Usuário não cadastrado!')
+            if (error.response.status === 409){
+                alert ('Email já está cadastrado!')
             } else {
                 alert (`Oh no! Erro ${error.response.status}!`)
             }
@@ -36,8 +36,10 @@ export default function Register(){
     return (
         <Container>
 
-            <img src={Logo} alt='Logo' style={{width: 180}}/>
-            <h1>TrackIt</h1>
+            <div onClick={() => navigate('/')}>
+                <img src={Logo} alt='Logo' style={{width: 180}}/>
+                <h1>TrackIt</h1>
+            </div>
 
             <StyledForm onSubmit={handleRegister}>
                 <input

@@ -31,16 +31,22 @@ const Container = styled.div`
     padding: 0 50px;
 
     img{
+        cursor: pointer;
         width: 180px;
     }
 
     h1 {
+        cursor: pointer;
         font-family: 'Playball', cursive;
         font-weight: 400;
         font-size: 70px;
         line-height: 86px;
         text-align: center;
         color: #126BA5;
+    }
+
+    h1:hover {
+        filter: brightness(70%);
     }
 `
 
@@ -86,7 +92,7 @@ const StyledForm = styled.form`
         cursor: pointer;
         
         &:hover {
-            background-color: #3985bb;
+            filter: brightness(70%);
         }
 
         &:active {
@@ -105,7 +111,7 @@ const StyledLink = styled(Link)`
     color: #52B6FF;
 
     &:hover {
-            color: #3985bb;
+        filter: brightness(70%);
     }
 `
 

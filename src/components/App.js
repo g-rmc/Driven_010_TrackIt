@@ -13,6 +13,7 @@ import History from "./History";
 
 
 export default function App() {
+  console.log('App aqui XD');
 
   const [login, setLogin] = useState({email:'', password:''});
   const [register, setRegister] = useState({email:'', password:'', name:'', image:''});

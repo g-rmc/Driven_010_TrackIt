@@ -37,8 +37,10 @@ export default function Login(){
     return (
         <Container>
 
-            <img src={Logo} alt='Logo' style={{ width: 180 }} />
-            <h1>TrackIt</h1>
+            <div onClick={() => navigate('/')}>
+                <img src={Logo} alt='Logo' style={{ width: 180 }} />
+                <h1>TrackIt</h1>
+            </div>
 
             <StyledForm onSubmit={handleLogin}>
                 <input

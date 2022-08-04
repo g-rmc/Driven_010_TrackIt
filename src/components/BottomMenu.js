@@ -8,12 +8,14 @@ import 'react-circular-progressbar/dist/styles.css';
 export default function BottomMenu(){
 
     const percentage = 66;
+    const navigate = useNavigate();
 
     return (
         <Container>
             
-            <h2>Hábitos</h2>
-            <div>
+            <h2 onClick={() => navigate('/habitos')}>Hábitos</h2>
+
+            <div onClick={() => navigate('/hoje')}>
                 <CircularProgressbar
                     value={percentage}
                     text='Hoje'
@@ -27,7 +29,8 @@ export default function BottomMenu(){
                     })}
                 />
             </div>
-            <h2>Histórico</h2>
+
+            <h2 onClick={() => navigate('/historico')}>Histórico</h2>
             
         </ Container>
     )
@@ -54,15 +57,15 @@ const Container = styled.div`
         color: #52B6FF;
     }
 
-    h2:hover {
-        color: #3985bb;
-    }
-
     div {
         height: 90px;
         width: 90px;
         transform: translateY(-20px);
         border-radius: 50%;
         cursor: pointer;
+    }
+
+    h2:hover, div:hover {
+        filter: brightness(70%);
     }
 `
