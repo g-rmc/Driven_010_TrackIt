@@ -1,13 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 
-import { getRegister } from "../../services/trackit";
+import { postRegister } from "../../services/trackit";
 import { Container, StyledForm, StyledLink, Logo, Loading } from "./style";
 
 export default function Register(){
 
-    const { register, setRegister, loading, setLoading} = useContext(UserContext);
+    const [loading, setLoading] = useState(false);
+    const [register, setRegister] = useState({email:'', password:'', name:'', image:''});
     const navigate = useNavigate();
 
     function handleRegister(e){
@@ -15,7 +16,7 @@ export default function Register(){
         e.preventDefault();
         setLoading(true);
 
-        const promise = getRegister(register);
+        const promise = postRegister(register);
 
         promise.then(response => {
             setLoading(false);

@@ -1,13 +1,15 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 
-import { getAccess } from "../../services/trackit";
+import { postAccess } from "../../services/trackit";
 import { Container, StyledForm, StyledLink, Logo, Loading } from "./style";
 
 export default function Login(){
 
-    const { login, setLogin, setUser, setToken, loading, setLoading} = useContext(UserContext);
+    const [login, setLogin] = useState({email:'', password:''});
+    const [loading, setLoading] = useState(false);
+    const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     function handleLogin(e){
@@ -15,11 +17,10 @@ export default function Login(){
         e.preventDefault();
         setLoading(true);
 
-        const promise = getAccess(login);
+        const promise = postAccess(login);
 
         promise.then(response => {
             setUser(response.data);
-            setToken(response.data.token);
             setLoading(false);
             navigate('/hoje');
         });

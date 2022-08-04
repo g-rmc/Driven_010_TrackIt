@@ -5,15 +5,15 @@ import styled from "styled-components";
 
 export default function TopBar(){
 
-    const { user, token } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
-/*     useEffect(() => {
-        if (token === ''){
+    useEffect(() => {
+        if (user === ''){
             alert ('Você não está logado! :0');
             navigate('/');
         }
-    },[]) */
+    },[])
 
     return (
         <Container>

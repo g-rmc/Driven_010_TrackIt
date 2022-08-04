@@ -2,14 +2,19 @@ import axios from 'axios';
 
 const baseURL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit';
 
-function getAccess (login) {
+function postAccess (login) {
     const promise = axios.post(`${baseURL}/auth/login`, login);
     return promise;
 }
 
-function getRegister (register) {
+function postRegister (register) {
     const promise = axios.post(`${baseURL}/auth/sign-up`, register);
     return promise;
 }
 
-export { getAccess, getRegister }
+function getHabits (config) {
+    const promise = axios.get(`${baseURL}/habits`, config);
+    return promise;
+}
+
+export { postAccess, postRegister, getHabits }

@@ -13,11 +13,8 @@ import History from "./History";
 
 
 export default function App() {
-  console.log('App aqui XD');
 
-  const [login, setLogin] = useState({email:'', password:''});
-  const [register, setRegister] = useState({email:'', password:'', name:'', image:''});
-  const [user, setUser] = useState( //null
+  const [user, setUser] = useState( //''
     {
       email: "teste@teste.br",
       id: 4635,
@@ -25,19 +22,16 @@ export default function App() {
       name: "Guilherme",
       password: "123",
       token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDYzNSwiaWF0IjoxNjU5NTc2NzA2fQ.rz8ZAXHUbNrFEVRcMB_1trU5pOM-xP5WkpHSQow3J94",
-    });
-  const [token, setToken] = useState("");
-  const [loading, setLoading] = useState(false);
+    }
+  ); 
+  const [habits, setHabits] = useState('');
   
   return (
     <>
       <GlobalStyle />
 
-      <UserContext.Provider value={{  login, setLogin,
-                                      user, setUser,
-                                      token, setToken,
-                                      register, setRegister,
-                                      loading, setLoading,
+      <UserContext.Provider value={{  user, setUser,
+                                      habits, setHabits,
                                     }}>
         <Container>
 
