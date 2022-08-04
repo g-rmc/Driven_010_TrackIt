@@ -23,7 +23,11 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: white;
     width: 100%;
+    max-width: 600px;
+    height: 100%;
+    min-height: 100vh;
     padding: 0 50px;
 
     img{

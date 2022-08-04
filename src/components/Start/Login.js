@@ -39,8 +39,6 @@ export default function Login(){
 
             <img src={Logo} alt='Logo' style={{ width: 180 }} />
             <h1>TrackIt</h1>
-            <Loading />
-
 
             <StyledForm onSubmit={handleLogin}>
                 <input

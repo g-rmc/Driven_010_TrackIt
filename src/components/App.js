@@ -16,7 +16,15 @@ export default function App() {
 
   const [login, setLogin] = useState({email:'', password:''});
   const [register, setRegister] = useState({email:'', password:'', name:'', image:''});
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState( //null
+    {
+      email: "teste@teste.br",
+      id: 4635,
+      image: "https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg",
+      name: "Guilherme",
+      password: "123",
+      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDYzNSwiaWF0IjoxNjU5NTc2NzA2fQ.rz8ZAXHUbNrFEVRcMB_1trU5pOM-xP5WkpHSQow3J94",
+    });
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
   
@@ -49,7 +57,7 @@ export default function App() {
 }
 
 const Container = styled.div`
-  background-color: white;
+  background-color: #f2f2f2;
   width: 100%;
   max-width: 600px;
   height: 100%;
