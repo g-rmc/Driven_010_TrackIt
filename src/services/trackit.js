@@ -17,4 +17,9 @@ function getHabits (config) {
     return promise;
 }
 
-export { postAccess, postRegister, getHabits }
+function postNewHabit (newHabit, config) {
+    const promise = axios.post(`${baseURL}/habits`, newHabit, config);
+    return promise;
+}
+
+export { postAccess, postRegister, getHabits, postNewHabit }

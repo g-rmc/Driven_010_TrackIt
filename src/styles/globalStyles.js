@@ -60,6 +60,10 @@ body {
   font-family: 'Lexend Deca', sans-serif;
   background-color: black;
 }
+
+button{
+   font-family: 'Lexend Deca', sans-serif;
+}
 `;
 
 export default GlobalStyle;

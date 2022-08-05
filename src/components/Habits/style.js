@@ -54,7 +54,92 @@ const NewHabitForm = styled.div`
     height: 180px;
     background: #FFFFFF;
     border-radius: 5px;
+    padding: 20px;
+
+    input {
+        height: 45px;
+        width: 100%;
+        font-size: 20px;
+        padding-left: 10px;
+        border: 1px solid #D5D5D5;
+        border-radius: 5px;
+    }
+
+    input::placeholder {
+        color: #DBDBDB;
+        opacity: 1;
+    }
+`
+
+const DaysPanel = styled.div`
+    display: flex;
+    margin-top: 5px;
+`
+
+const ControlPanel = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 30px;
+
+    h1{
+        cursor: pointer;
+        font-size: 16px;
+        line-height: 20px;
+        color: #52B6FF;
+        margin-right: 25px;
+    }
+
+    button{
+        width: 85px;
+        height: 35px;
+        background: #52B6FF;
+        border-radius: 5px;
+        border: none;
+        font-weight: 400;
+        font-size: 16px;
+        color: white;
+        cursor: pointer;
+    }
+
+    h1:hover, button:hover{
+        filter: brightness(70%);
+    }
+`
+
+const DayButton = styled.button`
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 20px;
+    border: 1px solid #CFCFCF;
+    border-radius: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+
+
+    ${props => {
+        if (props.selected === true){
+
+            return `
+                background-color: #CFCFCF;
+                color: white;
+            `;
+
+        } else {
+
+            return `
+                background-color: white ;
+                color: #CFCFCF;
+            `;
+
+        }
+
+    }}
 `
 
 
-export { Container, Header, NewHabitForm }
+export { Container, Header, NewHabitForm, DayButton, DaysPanel, ControlPanel }

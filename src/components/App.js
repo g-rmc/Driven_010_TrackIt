@@ -25,6 +25,8 @@ export default function App() {
     }
   ); 
   const [habits, setHabits] = useState('');
+
+  const config = {headers: {Authorization: `Bearer ${user.token}`}};
   
   return (
     <>
@@ -32,6 +34,7 @@ export default function App() {
 
       <UserContext.Provider value={{  user, setUser,
                                       habits, setHabits,
+                                      config
                                     }}>
         <Container>
 
