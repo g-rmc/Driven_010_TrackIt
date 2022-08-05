@@ -1,11 +1,12 @@
 import { useState, useEffect, useContext } from "react";
-import { getHabits, postNewHabit } from "../../services/trackit";
+import { getHabits, postNewHabit, deleteHabit } from "../../services/trackit";
 import UserContext from "../../contexts/UserContext";
+import { BsTrash } from 'react-icons/bs';
 
 import TopBar from "../TopBar";
 import BottomMenu from "../BottomMenu";
 
-import { Container, Header, NewHabitForm, DayButton, DaysPanel, ControlPanel, ControlButton } from "./style";
+import { Container, Header, NewHabitForm, DayButton, DaysPanel, ControlPanel, ControlButton, HabitCard } from "./style";
 
 const daysBase = [  { id: 0, initial: 'D', selected: false },
                 { id: 1, initial: 'S', selected: false },
@@ -16,7 +17,7 @@ const daysBase = [  { id: 0, initial: 'D', selected: false },
                 { id: 6, initial: 'S', selected: false }
 ];
 
-let days = [...daysBase];
+let days = daysBase.map(day => {return {...day}});
 
 export default function Habits(){
 
@@ -24,9 +25,7 @@ export default function Habits(){
     const [newHabit, setNewHabit] = useState({name:'', days:[]});
     const [showForm, setShowForm] = useState(false);
     const [loading, setLoading] = useState(false);
-    let controlRefresh = true;
-
-    console.log(newHabit);
+    const [refresh, setRefresh] = useState(true);
 
     useEffect(() => {
 
@@ -39,23 +38,23 @@ export default function Habits(){
         promise.catch(error => {
             alert (`Oh no! Erro ${error.response.status}!`)
         })
-    },[showForm]);
+    },[refresh]);
 
-    function CreateDayButton(day){
+    function CreateDayButton({day}){
 
-        const [click, setClick] = useState(day.day.selected);
+        const [click, setClick] = useState(day.selected);
 
         function whenClick() {
-            day.day.selected = !click;
-            setClick(day.day.selected);
+            day.selected = !click;
+            setClick(day.selected);
             let idDays = days.filter(day => day.selected);
             idDays = idDays.map(day => day.id);
             setNewHabit({ ...newHabit, days: idDays });
         }
 
         return(
-            <DayButton selected={day.day.selected} onClick={loading? null : whenClick} disabled={loading}>
-                {day.day.initial}
+            <DayButton selected={day.selected} onClick={loading? null : whenClick} disabled={loading}>
+                {day.initial}
             </DayButton>
         )
     }
@@ -77,15 +76,32 @@ export default function Habits(){
 
         promise.then(() => {
             setNewHabit({name:'', days:[]});
-            let days = [...daysBase];
+            days = daysBase.map(day => {return {...day}});
             setLoading(false);
             setShowForm(false);
+            setRefresh(!refresh);
         })
 
         promise.catch(error => {
             alert (`Oh no! Erro ${error.response.status}!`);
             setLoading(false);
         })
+    }
+
+    function handleDelete(id) {
+        if (window.confirm('Você realmente deseja excluir esse hábito?')) {
+            deleteHabit (id, config).then(() => setRefresh(!refresh));
+        }
+    }
+
+    function CreateHabitCard ({habit}) {
+
+        return (
+            <HabitCard>
+                {`Id: ${habit.id} | Hábito: ${habit.name} | Dias: ${habit.days}`}
+                <BsTrash onClick={() => handleDelete(habit.id)}/>
+            </HabitCard>
+        )
     }
     
     return (
@@ -130,7 +146,7 @@ export default function Habits(){
                     <h6>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h6>
                     :
                     <>
-                        {habits.map((habit, index) => <div key={index}>{`Id: ${habit.id} | Hábito: ${habit.name} | Dias: ${habit.days}`}</div>)}
+                        {habits.map((habit, index) => <CreateHabitCard key={index} habit={habit} />)}
                     </>
                 }
                 

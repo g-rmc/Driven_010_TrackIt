@@ -156,5 +156,14 @@ const DayButton = styled.button`
     }}
 `
 
+const HabitCard = styled.div`
+    width: 100%;
+    height: 90px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+`
 
-export { Container, Header, NewHabitForm, DayButton, DaysPanel, ControlPanel, ControlButton }
+
+export { Container, Header, NewHabitForm, DayButton, DaysPanel, ControlPanel, ControlButton, HabitCard }

@@ -22,4 +22,9 @@ function postNewHabit (newHabit, config) {
     return promise;
 }
 
-export { postAccess, postRegister, getHabits, postNewHabit }
+function deleteHabit (habitId, config) {
+    const promise = axios.delete(`${baseURL}/habits/${habitId}`, config);
+    return promise;
+}
+
+export { postAccess, postRegister, getHabits, postNewHabit, deleteHabit }
