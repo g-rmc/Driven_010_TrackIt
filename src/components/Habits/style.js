@@ -82,28 +82,44 @@ const ControlPanel = styled.div`
     justify-content: flex-end;
     margin-top: 30px;
 
-    h1{
-        cursor: pointer;
-        font-size: 16px;
-        line-height: 20px;
-        color: #52B6FF;
-        margin-right: 25px;
+    &:nth-child(1){
+        background-color: blue;
     }
+`
 
-    button{
-        width: 85px;
-        height: 35px;
-        background: #52B6FF;
-        border-radius: 5px;
-        border: none;
-        font-weight: 400;
-        font-size: 16px;
-        color: white;
-        cursor: pointer;
-    }
+const ControlButton = styled.button`
+    width: 85px;
+    height: 35px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 400;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+    
+    ${props => {
+        if (props.filledBackground === true){
 
-    h1:hover, button:hover{
+            return `
+                background-color: #52B6FF ;
+                color: white;
+            `;
+
+        } else {
+
+            return `
+                background-color: rgba(0,0,0,0);
+                color: #52B6FF;
+            `;
+        }
+    }}
+
+    &:hover{
         filter: brightness(70%);
+    }
+
+    &:active{
+        transform: translateY(2px);
     }
 `
 
@@ -119,7 +135,6 @@ const DayButton = styled.button`
     border-radius: 5px;
     margin-right: 5px;
     cursor: pointer;
-
 
     ${props => {
         if (props.selected === true){
@@ -142,4 +157,4 @@ const DayButton = styled.button`
 `
 
 
-export { Container, Header, NewHabitForm, DayButton, DaysPanel, ControlPanel }
+export { Container, Header, NewHabitForm, DayButton, DaysPanel, ControlPanel, ControlButton }

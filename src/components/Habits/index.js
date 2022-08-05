@@ -5,7 +5,7 @@ import UserContext from "../../contexts/UserContext";
 import TopBar from "../TopBar";
 import BottomMenu from "../BottomMenu";
 
-import { Container, Header, NewHabitForm, DayButton, DaysPanel, ControlPanel } from "./style";
+import { Container, Header, NewHabitForm, DayButton, DaysPanel, ControlPanel, ControlButton } from "./style";
 
 const daysBase = [  { id: 0, initial: 'D', selected: false },
                 { id: 1, initial: 'S', selected: false },
@@ -115,9 +115,9 @@ export default function Habits(){
 
                         <ControlPanel>
 
-                            <h1 onClick={() => setShowForm(!showForm)}>Cancelar</h1>
+                            <ControlButton onClick={() => setShowForm(!showForm)} disabled={loading} filledBackground={false}>Cancelar</ControlButton>
 
-                            <button onClick={handleForm} disabled={loading}>Salvar</button>
+                            <ControlButton onClick={handleForm} disabled={loading} filledBackground={true}>Salvar</ControlButton>
 
                         </ControlPanel>
 
