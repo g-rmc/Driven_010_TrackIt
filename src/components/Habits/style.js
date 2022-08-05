@@ -163,6 +163,34 @@ const HabitCard = styled.div`
     background-color: white;
     border-radius: 5px;
     margin-top: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    h1 {
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 25px;
+        color: #666666;
+        margin-bottom: 8px;
+    }
+
+    button {
+        cursor: initial;
+    }
+
+    svg {
+        color:#DBDBDB;
+        cursor: pointer;
+    }
+
+    svg:hover{
+        color: #666666;
+    }
+
+    svg:active {
+        transform: translateY(2px);
+    }
 `
 
 

@@ -96,9 +96,28 @@ export default function Habits(){
 
     function CreateHabitCard ({habit}) {
 
+        habit.days.sort();
+
+        const selectedDays = [];
+        let arrId = 0;
+
+        for (let i = 0; i < daysBase.length; i++){
+            if (daysBase[i].id === habit.days[arrId]){
+                selectedDays.push(true);
+                arrId++;
+            } else {
+                selectedDays.push(false);
+            }
+        }
+
         return (
             <HabitCard>
-                {`Id: ${habit.id} | Hábito: ${habit.name} | Dias: ${habit.days}`}
+                <div>
+                    <h1>{habit.name}</h1>
+                    <DaysPanel>
+                        {daysBase.map((day, index) => <DayButton key={index} selected={selectedDays[index]}>{day.initial}</DayButton>)}
+                    </DaysPanel>
+                </div>
                 <BsTrash onClick={() => handleDelete(habit.id)}/>
             </HabitCard>
         )
