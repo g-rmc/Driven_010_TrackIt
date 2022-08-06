@@ -27,6 +27,7 @@ export default function App() {
   const [habits, setHabits] = useState('');
   const [today, setToday] = useState('');
   const [percentage, setPercentage] = useState(0);
+  const [refresh, setRefresh] = useState(true);
 
   const config = {headers: {Authorization: `Bearer ${user.token}`}};
   
@@ -38,6 +39,7 @@ export default function App() {
                                       habits, setHabits,
                                       today, setToday,
                                       percentage, setPercentage,
+                                      refresh, setRefresh,
                                       config
                                     }}>
         <Container>

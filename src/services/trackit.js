@@ -32,4 +32,14 @@ function getToday (config) {
     return promise;
 }
 
-export { postAccess, postRegister, getHabits, postNewHabit, deleteHabit, getToday }
+function postCheck (habitId, config) {
+    const promise = axios.post(`${baseURL}/habits/${habitId}/check`, true, config);
+    return promise;
+}
+
+function postUncheck (habitId, config) {
+    const promise = axios.post(`${baseURL}/habits/${habitId}/uncheck`, false, config);
+    return promise;
+}
+
+export { postAccess, postRegister, getHabits, postNewHabit, deleteHabit, getToday, postCheck, postUncheck }

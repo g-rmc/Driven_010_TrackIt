@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from "react";
-import { getToday } from "../../services/trackit";
+import { getToday, postCheck, postUncheck } from "../../services/trackit";
 import UserContext from "../../contexts/UserContext";
 import { BsCheckLg } from 'react-icons/bs';
 
 import TopBar from "../TopBar";
 import BottomMenu from "../BottomMenu";
 
-import { Container, Header } from "./style";
+import { Container, Header, Card } from "./style";
 
 import dayjs from "dayjs";
 import 'dayjs/locale/pt-br';
@@ -14,7 +14,9 @@ dayjs.locale('pt-br');
 
 export default function Today(){
 
-    const { today, setToday, percentage, setPercentage, config } = useContext(UserContext);
+    const { today, setToday, percentage, setPercentage, refresh, setRefresh, config } = useContext(UserContext);
+    const [loading, setLoading] = useState(false);
+
     let weekday = dayjs().format('dddd, DD/MM');
     weekday = weekday.replace('-feira', '');
     weekday = weekday.replace(weekday[0], weekday[0].toUpperCase());    
@@ -25,25 +27,62 @@ export default function Today(){
 
         promise.then(response => {
             setToday(response.data);
-            setPercentage(calculatePercentage);
-            console.log(response.data);
+            calculatePercentage(response.data);
+            setLoading(false);
         })
 
         promise.catch(error => {
             alert (`Oh no! Erro ${error.response.status}!`)
         })
-    },[]);
+    },[refresh]);
 
-    function calculatePercentage () {
+    function calculatePercentage (arrToday) {
+        const numTotal = arrToday.length;
         let numDone = 0;
-        const numTotal = today.length;
-        for (let i = 0; i < today.length; i++) {
-            if (today[i].done === true){
+        if (numTotal === 0){
+            setPercentage(numDone);
+            return;
+        }
+        for (let i = 0; i < numTotal; i++) {
+            if (arrToday[i].done === true){
                 numDone++
             }
         }
-        setPercentage((numDone/numTotal)*100);
-        return percentage;
+        const calc = Math.round((numDone/numTotal)*100);
+        setPercentage(calc);
+    }
+
+    function handleClick(habitId, isDone) {
+        setLoading(true);
+        if (isDone === false) {
+            postCheck(habitId, config).then(() => {
+                setRefresh(!refresh);
+            });
+        }
+        if (isDone === true) {
+            postUncheck(habitId, config).then(() => {
+                setRefresh(!refresh);
+            });
+        }
+    }
+
+    function Habit({habit}){
+
+        const isRecord = habit.currentSequence === habit.highestSequence && habit.done;
+        
+
+        return (
+            <Card isDone={habit.done} isRecord={isRecord}>
+                <div>
+                    <h1>{habit.name}</h1>
+                    <h2>Sequência atual: <b>{habit.currentSequence} dia</b></h2>
+                    <h2>Seu recorde: <em>{habit.highestSequence} dia</em></h2>
+                </div>
+                <button onClick={() => handleClick(habit.id, habit.done)} disabled={loading}>
+                    <BsCheckLg />
+                </button>
+            </Card>
+        )
     }
 
     return (
@@ -60,6 +99,13 @@ export default function Today(){
                     }
                 </h2>
             </Header>
+
+            <>
+                {today.length === 0 ?
+                <h6>Você não possui hábitos cadastrados para hoje :(</h6> :
+                today.map((habit, index) => <Habit key={index} habit={habit}/>)
+                }
+            </>
         </Container>
 
         <BottomMenu />
