@@ -7,7 +7,7 @@ import 'react-circular-progressbar/dist/styles.css';
 
 export default function BottomMenu(){
 
-    const percentage = 66;
+    const { percentage } = useContext(UserContext);
     const navigate = useNavigate();
 
     return (

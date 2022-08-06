@@ -27,4 +27,9 @@ function deleteHabit (habitId, config) {
     return promise;
 }
 
-export { postAccess, postRegister, getHabits, postNewHabit, deleteHabit }
+function getToday (config) {
+    const promise = axios.get(`${baseURL}/habits/today`, config);
+    return promise;
+}
+
+export { postAccess, postRegister, getHabits, postNewHabit, deleteHabit, getToday }
