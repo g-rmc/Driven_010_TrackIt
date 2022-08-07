@@ -21,13 +21,15 @@ let days = daysBase.map(day => {return {...day}});
 
 export default function Habits(){
 
-    const { habits, setHabits, refresh, setRefresh, config } = useContext(UserContext);
+    const { user, habits, setHabits, refresh, setRefresh, config } = useContext(UserContext);
     const [newHabit, setNewHabit] = useState({name:'', days:[]});
     const [showForm, setShowForm] = useState(false);
     const [loading, setLoading] = useState(false);
     
 
     useEffect(() => {
+
+        if(user === ''){ return; }
 
         const promise = getHabits(config);
 

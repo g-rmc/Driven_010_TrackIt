@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 
@@ -12,6 +12,13 @@ export default function Login(){
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (localStorage.getItem('trackitUser') !== null) {
+            setUser(JSON.parse(localStorage.getItem('trackitUser')));
+            navigate('/hoje');
+        };
+    }, [])
+
     function handleLogin(e){
 
         e.preventDefault();
@@ -21,6 +28,7 @@ export default function Login(){
 
         promise.then(response => {
             setUser(response.data);
+            localStorage.setItem('trackitUser', JSON.stringify(response.data));
             setLoading(false);
             navigate('/hoje');
         });

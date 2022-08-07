@@ -14,16 +14,7 @@ import History from "./History";
 
 export default function App() {
 
-  const [user, setUser] = useState( //''
-    {
-      email: "teste@teste.br",
-      id: 4635,
-      image: "https://www.cleverfiles.com/howto/wp-content/uploads/2018/03/minion.jpg",
-      name: "Guilherme",
-      password: "123",
-      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDYzNSwiaWF0IjoxNjU5NTc2NzA2fQ.rz8ZAXHUbNrFEVRcMB_1trU5pOM-xP5WkpHSQow3J94",
-    }
-  ); 
+  const [user, setUser] = useState(''); 
   const [habits, setHabits] = useState('');
   const [today, setToday] = useState('');
   const [percentage, setPercentage] = useState(0);

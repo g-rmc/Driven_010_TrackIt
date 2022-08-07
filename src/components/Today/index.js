@@ -14,7 +14,7 @@ dayjs.locale('pt-br');
 
 export default function Today(){
 
-    const { today, setToday, percentage, setPercentage, refresh, setRefresh, config } = useContext(UserContext);
+    const { user, today, setToday, percentage, setPercentage, refresh, setRefresh, config } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
 
     let weekday = dayjs().format('dddd, DD/MM');
@@ -22,6 +22,8 @@ export default function Today(){
     weekday = weekday.replace(weekday[0], weekday[0].toUpperCase());    
 
     useEffect(() => {
+
+        if(user === ''){ return; }
 
         const promise = getToday(config);
 

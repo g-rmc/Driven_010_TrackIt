@@ -5,13 +5,15 @@ import styled from "styled-components";
 
 export default function TopBar(){
 
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (user === ''){
-            alert ('Você não está logado! :0');
             navigate('/');
+            if (localStorage.getItem('trackitUser') === null) {
+                alert ('Você não está logado! :0');
+            };
         }
     },[])
 
@@ -19,7 +21,12 @@ export default function TopBar(){
         <Container>
             
             <h1 onClick={() => navigate('/hoje')}>TrackIt</h1>
-            <img src={user.image} alt="profile"/>
+            <img src={user.image} alt="profile" onClick={() => {
+                if (window.confirm('Você realmente deseja fazer logout?')) {
+                    localStorage.removeItem("trackitUser");
+                    navigate('/');
+                }
+            }} />
             
         </ Container>
     )
