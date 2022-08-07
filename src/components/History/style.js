@@ -5,14 +5,6 @@ const Container = styled.div`
     min-height: 100vh;
     height: 100%;
     padding: 100px 20px;
-
-    h6 {
-        margin-top: 30px;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 22px;
-        color: #666666;
-    }
 `
 
 const Header = styled.div`
@@ -24,7 +16,26 @@ const Header = styled.div`
         line-height: 29px;
         color: #126BA5; 
     }
-
 `
 
-export { Container, Header }
+const CalendarContainer = styled.div `
+
+    font-size: 20px;
+
+    div {
+        border: none;
+    }
+    
+    & > div {
+        width: 100%;
+        height: 500px;
+        border-radius: 5px;
+    }
+
+    button {
+        height: 80px;
+        font-size: 14px;
+    }
+`
+
+export { Container, Header, CalendarContainer }

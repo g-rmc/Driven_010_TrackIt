@@ -42,4 +42,9 @@ function postUncheck (habitId, config) {
     return promise;
 }
 
-export { postAccess, postRegister, getHabits, postNewHabit, deleteHabit, getToday, postCheck, postUncheck }
+function getHistory (config) {
+    const promise = axios.get(`${baseURL}/habits/history/daily`, config);
+    return promise;
+}
+
+export { postAccess, postRegister, getHabits, postNewHabit, deleteHabit, getToday, postCheck, postUncheck, getHistory }

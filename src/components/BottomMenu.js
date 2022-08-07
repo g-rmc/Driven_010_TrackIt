@@ -1,4 +1,5 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { getToday } from "../services/trackit";
 import UserContext from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -7,8 +8,41 @@ import 'react-circular-progressbar/dist/styles.css';
 
 export default function BottomMenu(){
 
-    const { percentage } = useContext(UserContext);
+    const { user, percentage, setPercentage, setLoading, setToday, refresh, config } = useContext(UserContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+
+        if(user === ''){ return; }
+
+        const promise = getToday(config);
+
+        promise.then(response => {
+            setToday(response.data);
+            calculatePercentage(response.data);
+            setLoading(false);
+        })
+
+        promise.catch(error => {
+            alert (`Oh no! Erro ${error.response.status}!`)
+        })
+    },[refresh]);
+
+    function calculatePercentage (arrToday) {
+        const numTotal = arrToday.length;
+        let numDone = 0;
+        if (numTotal === 0){
+            setPercentage(numDone);
+            return;
+        }
+        for (let i = 0; i < numTotal; i++) {
+            if (arrToday[i].done === true){
+                numDone++
+            }
+        }
+        const calc = Math.round((numDone/numTotal)*100);
+        setPercentage(calc);
+    } 
 
     return (
         <Container>

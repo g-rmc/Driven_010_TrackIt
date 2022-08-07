@@ -14,14 +14,13 @@ dayjs.locale('pt-br');
 
 export default function Today(){
 
-    const { user, today, setToday, percentage, setPercentage, refresh, setRefresh, config } = useContext(UserContext);
-    const [loading, setLoading] = useState(false);
+    const { today, percentage, setPercentage, refresh, setRefresh, loading, setLoading, config } = useContext(UserContext);
 
     let weekday = dayjs().format('dddd, DD/MM');
     weekday = weekday.replace('-feira', '');
     weekday = weekday.replace(weekday[0], weekday[0].toUpperCase());    
 
-    useEffect(() => {
+/*     useEffect(() => {
 
         if(user === ''){ return; }
 
@@ -36,7 +35,7 @@ export default function Today(){
         promise.catch(error => {
             alert (`Oh no! Erro ${error.response.status}!`)
         })
-    },[refresh]);
+    },[refresh]); 
 
     function calculatePercentage (arrToday) {
         const numTotal = arrToday.length;
@@ -52,7 +51,7 @@ export default function Today(){
         }
         const calc = Math.round((numDone/numTotal)*100);
         setPercentage(calc);
-    }
+    } */
 
     function handleClick(habitId, isDone) {
         setLoading(true);

@@ -19,6 +19,7 @@ export default function App() {
   const [today, setToday] = useState('');
   const [percentage, setPercentage] = useState(0);
   const [refresh, setRefresh] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const config = {headers: {Authorization: `Bearer ${user.token}`}};
   
@@ -31,6 +32,7 @@ export default function App() {
                                       today, setToday,
                                       percentage, setPercentage,
                                       refresh, setRefresh,
+                                      loading, setLoading,
                                       config
                                     }}>
         <Container>
