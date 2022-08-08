@@ -5,16 +5,19 @@ import UserContext from "../../contexts/UserContext";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
+import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
+
 import TopBar from "../TopBar";
 import BottomMenu from "../BottomMenu";
 
-import { Container, Header, CalendarContainer, CalendarDay } from "./style";
+import { Container, Header, CalendarContainer, CalendarDay, BottomCard } from "./style";
 import dayjs from 'dayjs';
 
 export default function History(){
 
     const [value, onChange] = useState(new Date());
     const [history, setHistory] = useState('');
+    const [dayList, setDayList] = useState('');
     const { config } = useContext(UserContext);
 
     useEffect(() => {
@@ -28,7 +31,7 @@ export default function History(){
         const today = dayjs().format('DD/MM/YYYY');
 
         if (history === '' || date === today){
-            return null;
+            return {color: null};
         }
 
         for (let i = 0; i < history.length; i++){
@@ -36,7 +39,7 @@ export default function History(){
                 const dayHabits = history[i].habits
                 const numHabits = dayHabits.length;
                 let numDone = 0;
-                
+
                 for (let j = 0; j < numHabits; j++){
                     if (dayHabits[j].done === true){
                         numDone++;
@@ -44,13 +47,23 @@ export default function History(){
                 }
 
                 if (numDone === numHabits){
-                    return 'green'
+                    return {status:{dayHabits:dayHabits, date:date}, color:'green'}
                 } else {
-                    return 'red'
+                    return {status:{dayHabits:dayHabits, date:date}, color:'red'}
                 }
             }  
         }
-        return null
+        return {color: null};
+    }
+
+    function CardHabit({habit}) {
+        console.log(habit);
+
+        return (
+            <div>
+                {habit.name}{habit.done === true ? <BsCheckCircleFill style={{color:'#8CC654'}}/> : <BsFillXCircleFill style={{color:'#EA5766'}}/>}
+            </div>
+        )
     }
 
     return (
@@ -68,23 +81,37 @@ export default function History(){
                     value={value}
                     calendarType='US'
                     formatDay={(locale, date) => {
-                        const colorDone = checkHabits(date)
-                        if (colorDone === 'red') {
+                        const habitsStatus = checkHabits(date)
+                        if (habitsStatus.color === 'red') {
                             return (
-                                <CalendarDay color='red'>{dayjs(date).format('DD')}</CalendarDay>
+                                <CalendarDay color='red' onClick={() => setDayList(habitsStatus.status)}>
+                                    <div>{dayjs(date).format('DD')}</div>
+                                </CalendarDay>
                             )
-                        } else if (colorDone === 'green') {
+                        } else if (habitsStatus.color === 'green') {
                             return (
-                                <CalendarDay color='green'>{dayjs(date).format('DD')}</CalendarDay>
+                                <CalendarDay color='green' onClick={() => setDayList(habitsStatus.status)}>
+                                    <div>{dayjs(date).format('DD')}</div>
+                                </CalendarDay>
                             )
                         } else {
                             return (
-                                <CalendarDay>{dayjs(date).format('DD')}</CalendarDay>
+                                <CalendarDay onClick={() => setDayList('')}>
+                                    <div>{dayjs(date).format('DD')}</div>
+                                </CalendarDay>
                             );
                         }
                     }}
                 /> 
             </CalendarContainer>
+
+            {dayList === ''?
+                <></> :
+                <BottomCard>
+                    <h1> Hábitos do dia {dayList.date}</h1>
+                    {dayList.dayHabits.map((habit, index) => <CardHabit key={index} habit={habit}/>)}
+                </BottomCard> 
+            }
 
         </Container>
 

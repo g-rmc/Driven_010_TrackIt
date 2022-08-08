@@ -55,15 +55,15 @@ const Container = styled.div`
         line-height: 49px;
     }
 
-    h1:hover {
-        cursor: pointer;
-        filter: brightness(70%);
-    }
-
     img {
         height: 50px;
         width: 50px;
         object-fit: cover;
         border-radius: 50%;
+    }
+
+    h1:hover, img:hover{
+        cursor: pointer;
+        filter: brightness(70%);
     }
 `
