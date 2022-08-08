@@ -56,6 +56,7 @@ export default function App() {
 const Container = styled.div`
   background-color: #f2f2f2;
   width: 100%;
+  min-width: 300px;
   max-width: 600px;
   height: 100%;
   min-height: 100vh;

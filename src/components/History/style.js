@@ -20,7 +20,7 @@ const Header = styled.div`
 
 const CalendarContainer = styled.div `
 
-    font-size: 20px;
+    font-size: 18px;
 
     div {
         border: none;
@@ -28,14 +28,45 @@ const CalendarContainer = styled.div `
     
     & > div {
         width: 100%;
-        height: 500px;
         border-radius: 5px;
-    }
-
-    button {
-        height: 80px;
-        font-size: 14px;
     }
 `
 
-export { Container, Header, CalendarContainer }
+const CalendarDay = styled.div `
+    margin: auto;
+    width: 10vw;
+    height: 10vw;
+    max-width: 60px;
+    max-height: 60px;
+    min-width: 30px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+    ${props => {
+        if (props.color === 'red') {
+
+            return `
+                background-color: #EA5766;
+            `;
+
+        } else if (props.color === 'green') {
+
+            return `
+                background-color: #8CC654;
+            `;
+
+        } else {
+
+            return `
+                background-color: rgba(0,0,0,0) ;
+            `;
+
+        }
+
+    }}
+`
+
+export { Container, Header, CalendarContainer, CalendarDay }

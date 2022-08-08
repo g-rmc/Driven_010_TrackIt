@@ -34,6 +34,7 @@ export default function TopBar(){
 
 const Container = styled.div`
     width:100%;
+    min-width: 300px;
     max-width: 600px;
     height: 70px;
     display: flex;
