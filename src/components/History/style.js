@@ -38,7 +38,7 @@ const CalendarContainer = styled.div `
 
 const CalendarDay = styled.div `
     width: 100%;
-    padding: 10px;
+    padding: 10px 0;
     display: flex;
     align-items: center;
     justify-content: center;
