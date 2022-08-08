@@ -36,6 +36,7 @@ const Header = styled.div`
         border: none;
         font-weight: 400;
         font-size: 27px;
+        padding-bottom: 40px;
         color: white;
         cursor: pointer;
     }

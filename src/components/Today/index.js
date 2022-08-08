@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from "react";
-import { getToday, postCheck, postUncheck } from "../../services/trackit";
+import { useContext } from "react";
+import { postCheck, postUncheck } from "../../services/trackit";
 import UserContext from "../../contexts/UserContext";
 import { BsCheckLg } from 'react-icons/bs';
 
@@ -14,44 +14,11 @@ dayjs.locale('pt-br');
 
 export default function Today(){
 
-    const { today, percentage, setPercentage, refresh, setRefresh, loading, setLoading, config } = useContext(UserContext);
+    const { today, percentage, refresh, setRefresh, loading, setLoading, config } = useContext(UserContext);
 
     let weekday = dayjs().format('dddd, DD/MM');
     weekday = weekday.replace('-feira', '');
     weekday = weekday.replace(weekday[0], weekday[0].toUpperCase());    
-
-/*     useEffect(() => {
-
-        if(user === ''){ return; }
-
-        const promise = getToday(config);
-
-        promise.then(response => {
-            setToday(response.data);
-            calculatePercentage(response.data);
-            setLoading(false);
-        })
-
-        promise.catch(error => {
-            alert (`Oh no! Erro ${error.response.status}!`)
-        })
-    },[refresh]); 
-
-    function calculatePercentage (arrToday) {
-        const numTotal = arrToday.length;
-        let numDone = 0;
-        if (numTotal === 0){
-            setPercentage(numDone);
-            return;
-        }
-        for (let i = 0; i < numTotal; i++) {
-            if (arrToday[i].done === true){
-                numDone++
-            }
-        }
-        const calc = Math.round((numDone/numTotal)*100);
-        setPercentage(calc);
-    } */
 
     function handleClick(habitId, isDone) {
         setLoading(true);
