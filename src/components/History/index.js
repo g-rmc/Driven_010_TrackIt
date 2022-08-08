@@ -18,9 +18,12 @@ export default function History(){
     const [value, onChange] = useState(new Date());
     const [history, setHistory] = useState('');
     const [dayList, setDayList] = useState('');
-    const { config } = useContext(UserContext);
+    const { user, config } = useContext(UserContext);
 
     useEffect(() => {
+
+        if(user === ''){ return; }
+
         getHistory(config).then((response) => {
             setHistory(response.data);
         })
@@ -57,8 +60,6 @@ export default function History(){
     }
 
     function CardHabit({habit}) {
-        console.log(habit);
-
         return (
             <div>
                 {habit.name}{habit.done === true ? <BsCheckCircleFill style={{color:'#8CC654'}}/> : <BsFillXCircleFill style={{color:'#EA5766'}}/>}
@@ -106,7 +107,9 @@ export default function History(){
             </CalendarContainer>
 
             {dayList === ''?
-                <></> :
+                <BottomCard>
+                    <h1> Você não possui histórico para o dia selecionado :)</h1>
+                </BottomCard> :
                 <BottomCard>
                     <h1> Hábitos do dia {dayList.date}</h1>
                     {dayList.dayHabits.map((habit, index) => <CardHabit key={index} habit={habit}/>)}
