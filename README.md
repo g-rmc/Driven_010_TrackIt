@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Access TrackIt App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Deploy available at [TrackIt App](https://driven-010-track-it.vercel.app/) (pt-br)
 
 ## Available Scripts
 
